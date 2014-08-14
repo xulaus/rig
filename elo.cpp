@@ -96,7 +96,7 @@ int main(int iargs, const char ** args) {
 		}
         else if(regex_match(line,matches, names_and_score_format)){
 	        auto score = stoi(matches[2].str());
-	        auto rounds=stoi(matches[3].str());
+	        auto rounds= stoi(matches[3].str()) + score;
 	        update_elo(elo_map,matches[1].str(),matches[4].str(),score,rounds);
         }
         else{
@@ -106,7 +106,7 @@ int main(int iargs, const char ** args) {
 
 	}
     for(auto& k:elo_map){
-	    *(opt.out)<<k.first<<": "<<k.second<<endl;
+	    *(opt.out)<<k.second<<"\t"<<k.first<<endl;
     }
 	return 0;
 }
