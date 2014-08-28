@@ -24,7 +24,7 @@ void cor_tests(double (*cor)(double, double, int,int)){
 		}
 	}
 
-};
+}
 
 TEST_CASE("Linear Correction","[linear_correction]"){
 	cor_tests(&linear_correction);
@@ -32,4 +32,27 @@ TEST_CASE("Linear Correction","[linear_correction]"){
 
 TEST_CASE("Binomial Correction","[binomial_correction]"){
 	cor_tests(binomial_correction);
+}
+
+TEST_CASE("Reading reading only one result from tree data","[parse_tree]"){
+	stringstream one_match;
+	one_match<<"Player one\n"
+	         <<"Player two\n"
+	         <<"Player one\n"
+	         <<"2-6 6-7 5-3 4-1 6-1\n";
+	auto results = parse_tree(&one_match);
+	SECTION("Only one result should be returned"){
+		REQUIRE(results.size() == 1 );
+	}
+	SECTION("Correct outcome should be returned"){
+		outcome_t o = results.at(0);
+		if(o.score1 < o.score2){
+			swap(o.name1,o.name2);
+			swap(o.score1,o.score2);
+		}
+		REQUIRE(o.name1=="Player one");
+		REQUIRE(o.name2=="Player two");
+		REQUIRE(o.score1==3);
+		REQUIRE(o.score2==2);
+	}
 }
