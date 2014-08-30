@@ -34,7 +34,7 @@ TEST_CASE("Binomial Correction","[binomial_correction]"){
 	cor_tests(binomial_correction);
 }
 
-TEST_CASE("Reading reading only one result from tree data","[parse_tree]"){
+TEST_CASE("Reading only one result from tree data","[parse_tree]"){
 	stringstream one_match;
 	one_match<<"Player one\n"
 	         <<"Player two\n"
@@ -54,5 +54,144 @@ TEST_CASE("Reading reading only one result from tree data","[parse_tree]"){
 		REQUIRE(o.name2=="Player two");
 		REQUIRE(o.score1==3);
 		REQUIRE(o.score2==2);
+	}
+}
+
+TEST_CASE("Reading multiple results from tree data","[parse_tree]"){
+	stringstream mul_match;
+	mul_match<<"Player two\n"
+	         <<"Player one\n"
+	         <<"Player three\n"
+	         <<"Player four\n"
+	         <<"Player one\n"
+	         <<"2-6 5-1 7-5 5-7 6-0\n"
+	         <<"Player three\n"
+	         <<"6-1\n"
+	         <<"Player one\n"
+	         <<"6-5 6-3 3-1\n";
+	auto results = parse_tree(&mul_match);
+	SECTION("Three results should be returned"){
+		REQUIRE(results.size() == 3 );
+	}
+
+	SECTION("Correct outcome should be returned"){
+		int index=0;
+		outcome_t o = results.at(index++);
+
+		if(o.score1 < o.score2){
+			swap(o.name1,o.name2);
+			swap(o.score1,o.score2);
+		}
+
+		REQUIRE(o.name1=="Player one");
+		REQUIRE(o.name2=="Player two");
+		REQUIRE(o.score1==3);
+		REQUIRE(o.score2==2);
+
+		o = results.at(index++);
+
+		if(o.score1 < o.score2){
+			swap(o.name1,o.name2);
+			swap(o.score1,o.score2);
+		}
+
+		REQUIRE(o.name1=="Player three");
+		REQUIRE(o.name2=="Player four");
+		REQUIRE(o.score1==1);
+		REQUIRE(o.score2==0);
+
+		o = results.at(index++);
+
+		if(o.score1 < o.score2){
+			swap(o.name1,o.name2);
+			swap(o.score1,o.score2);
+		}
+
+		REQUIRE(o.name1=="Player one");
+		REQUIRE(o.name2=="Player three");
+		REQUIRE(o.score1==3);
+		REQUIRE(o.score2==0);
+	}
+}
+
+TEST_CASE("Reading single walkover result from tree data","[parse_tree]"){
+	stringstream one_match;
+	one_match<<"Player one\n"
+	         <<"Player two\n"
+	         <<"Player one\n"
+	         <<"wo\n";
+	auto results = parse_tree(&one_match);
+
+	SECTION("Correct outcome should be returned"){
+		if( results.size() == 1 ){
+			outcome_t o = results.at(0);
+			if(o.score1 < o.score2){
+				swap(o.name1,o.name2);
+				swap(o.score1,o.score2);
+			}
+			REQUIRE(o.name1=="Player one");
+			REQUIRE(o.name2=="Player two");
+			REQUIRE(o.score1==0);
+			REQUIRE(o.score2==0);
+		}
+		else{
+			REQUIRE(results.size()==0);
+		}
+	}
+
+}
+
+TEST_CASE("Reading multiple results including walkover result and irregular match lengths from tree data","[parse_tree]"){
+	stringstream mul_match;
+	mul_match<<"Player one\n"
+	         <<"Player two\n"
+	         <<"Player three\n"
+	         <<"Player four\n"
+	         <<"Player one\n"
+	         <<"wo\n"
+	         <<"Player three\n"
+	         <<"6-1\n"
+	         <<"Player one\n"
+	         <<"6-5 6-3 3-1\n";
+	auto results = parse_tree(&mul_match);
+	SECTION("Three results should be returned"){
+		REQUIRE(results.size() == 3 );
+	}
+
+	SECTION("Correct outcome should be returned"){
+		int index=0;
+		outcome_t o = results.at(index);
+
+		if(o.name1=="Player one"){
+			REQUIRE(o.name1=="Player one");
+			REQUIRE(o.name2=="Player two");
+			REQUIRE(o.score1==0);
+			REQUIRE(o.score2==0);
+			index++;
+		}
+
+		o = results.at(index++);
+
+		if(o.score1 < o.score2){
+			swap(o.name1,o.name2);
+			swap(o.score1,o.score2);
+		}
+
+		REQUIRE(o.name1=="Player three");
+		REQUIRE(o.name2=="Player four");
+		REQUIRE(o.score1==1);
+		REQUIRE(o.score2==0);
+
+		o = results.at(index++);
+
+		if(o.score1 < o.score2){
+			swap(o.name1,o.name2);
+			swap(o.score1,o.score2);
+		}
+
+		REQUIRE(o.name1=="Player one");
+		REQUIRE(o.name2=="Player three");
+		REQUIRE(o.score1==3);
+		REQUIRE(o.score2==0);
 	}
 }
