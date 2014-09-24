@@ -186,7 +186,7 @@ results_t parse_tree(std::istream* in){
 			}
 		}
 		else{
-			throw std::runtime_error(line);
+			throw std::runtime_error("Expected name, got '"+line+"'");
 		}
 
 	}
