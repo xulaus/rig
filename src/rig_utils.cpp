@@ -85,11 +85,9 @@ results_t parse_tree(std::istream* in){
 	std::queue<std::pair<std::string,std::string>> players;
 
 	std::string line;
-	std::regex name_regex("(\\d*\\.?\\s*)?([A-Z \\-\\.]+)\\s*",
-	                      std::regex_constants::icase);
+	std::regex name_regex("(\\d*\\.?\\s*)?([A-Za-z \\-\\.]+)\\s*");
 
-	std::regex score_regex("(\\d)\\s*[\\-/]\\s*(\\d)\\s*|ret\\.?",
-	                       std::regex_constants::icase);
+	std::regex score_regex("(\\d)\\s*[\\-/]\\s*(\\d)\\s*|ret\\.?");
 
 	std::pair<std::string,std::string> opponents;
 	bool first_opponent_set=false;
