@@ -34,6 +34,77 @@ TEST_CASE("Binomial Correction","[binomial_correction]"){
 	cor_tests(binomial_correction);
 }
 
+
+TEST_CASE("Reading one result from list data.","[parse_list]"){
+	stringstream one_match;
+	one_match<<"Player one 3- 2 Player two";
+	auto results = parse_list(&one_match);
+	SECTION("Only one result should be returned"){
+		REQUIRE(results.size() == 1 );
+	}
+	SECTION("Correct outcome should be returned"){
+		outcome_t o = results.at(0);
+		if(o.score1 < o.score2){
+			swap(o.name1,o.name2);
+			swap(o.score1,o.score2);
+		}
+		REQUIRE(o.name1=="Player one");
+		REQUIRE(o.name2=="Player two");
+		REQUIRE(o.score1==3);
+		REQUIRE(o.score2==2);
+	}
+}
+
+TEST_CASE("Reading multiple results from list data.","[parse_list]"){
+	stringstream mul_match;
+	mul_match<<"Player two 2 -3 Player one\n"
+	         <<"Player three 1-0 Player four\n"
+	         <<"Player three  0  -  3  Player one\n";
+	auto results = parse_list(&mul_match);
+	SECTION("Three results should be returned"){
+		REQUIRE(results.size() == 3 );
+	}
+
+	SECTION("Correct outcome should be returned"){
+		int index=0;
+		outcome_t o = results.at(index++);
+
+		if(o.score1 < o.score2){
+			swap(o.name1,o.name2);
+			swap(o.score1,o.score2);
+		}
+
+		REQUIRE(o.name1=="Player one");
+		REQUIRE(o.name2=="Player two");
+		REQUIRE(o.score1==3);
+		REQUIRE(o.score2==2);
+
+		o = results.at(index++);
+
+		if(o.score1 < o.score2){
+			swap(o.name1,o.name2);
+			swap(o.score1,o.score2);
+		}
+
+		REQUIRE(o.name1=="Player three");
+		REQUIRE(o.name2=="Player four");
+		REQUIRE(o.score1==1);
+		REQUIRE(o.score2==0);
+
+		o = results.at(index++);
+
+		if(o.score1 < o.score2){
+			swap(o.name1,o.name2);
+			swap(o.score1,o.score2);
+		}
+
+		REQUIRE(o.name1=="Player one");
+		REQUIRE(o.name2=="Player three");
+		REQUIRE(o.score1==3);
+		REQUIRE(o.score2==0);
+	}
+}
+
 TEST_CASE("Reading only one result from tree data","[parse_tree]"){
 	stringstream one_match;
 	one_match<<"Player one\n"

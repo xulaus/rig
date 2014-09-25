@@ -32,10 +32,8 @@ double binomial_correction(double s1, double s2, int r1, int r2){
 results_t parse_list(std::istream* in){
 	std::string line;
 	results_t results;
-	std::regex names_format("([a-z ]*) - ([a-z ]*)",
-	                        std::regex_constants::icase);
-	std::regex names_and_score("([a-z ]*) (\\d+) - (\\d+) ([a-z ]*)",
-	                           std::regex_constants::icase);
+	std::regex names_format("([A-Za-z \\-]+?)\\s+-\\s+([A-Za-z \\-]+?)");
+	std::regex names_and_score("([A-Za-z \\-]+?)\\s+(\\d+)\\s*-\\s*(\\d+)\\s+([A-Za-z \\-]+?)");
 
     while(getline(*(in),line)){
 	    std::smatch matches;
@@ -49,13 +47,12 @@ results_t parse_list(std::istream* in){
 	        auto score1 = stoi(matches[2].str());
 	        auto score2 = stoi(matches[3].str());
 			results.push_back(outcome_t(matches[1].str(),
-			                            matches[2].str(),
+			                            matches[4].str(),
 			                            score1,
 			                            score2));
         }
         else{
-	        std::cerr<< "Datafile in incorrect format."<<std::endl;
-	        exit(1);
+	        throw std::runtime_error("Datafile in incorrect format.");
         }
     }
     return results;
