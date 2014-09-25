@@ -19,7 +19,7 @@ int main(int iargs, const char ** args) {
 	    results=parse_list(opt.in);
 	    break;
     default:
-	    throw runtime_error("Unimplimented Input Format.");
+	    throw runtime_error("Unimplemented Input Format.");
     }
 
 	score_t scores;
@@ -40,7 +40,7 @@ int main(int iargs, const char ** args) {
 	    }
 	    break;
     default:
-	    throw runtime_error("Unimplimented Input Format.");
+	    throw runtime_error("Unimplemented Output Format.");
     }
 	return 0;
 }
