@@ -34,6 +34,20 @@ TEST_CASE("Binomial Correction","[binomial_correction]"){
 	cor_tests(binomial_correction);
 }
 
+TEST_CASE("Matching names works as a equality operator","[match_name]"){
+	SECTION("Identical names return true"){
+		REQUIRE(match_name("Player one","Player one")==true);
+	}
+	SECTION("Dissimilar name return false "){
+		REQUIRE(match_name("Player one","Player on")==false);
+	}
+}
+
+TEST_CASE("Matching abbreviated name works.","[match_name]"){
+	SECTION("Abbreviated first names expand"){
+		REQUIRE(match_name("P. one","Player one")==true);
+	}
+}
 
 TEST_CASE("Reading one result from list data.","[parse_list]"){
 	stringstream one_match;
