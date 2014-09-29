@@ -8,7 +8,7 @@ outcome_t::outcome_t(std::string p1,std::string p2, int s1, int s2):
 	name1(p1),
 	name2(p2),
 	score1(s1),
-	score2(s2){};
+	score2(s2){}
 
 double linear_correction(double s1, double s2, int r1, int r2){
 	if(r1+r2==0) return 0;

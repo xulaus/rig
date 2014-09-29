@@ -6,7 +6,8 @@
 opt_t::opt_t():
 	in(&std::cin),out(&std::cout),
 	cor(&linear_correction),
-	in_fmt(IN_TREE),out_fmt(OUT_ELO){};
+	in_fmt(IN_TREE),out_fmt(OUT_ELO){}
+
 opt_t::~opt_t(){
 	if(in!=&std::cin && out!=nullptr){
 		delete in;
