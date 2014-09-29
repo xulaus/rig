@@ -104,6 +104,50 @@ TEST_CASE("Reading multiple results from list data.","[parse_list]"){
 		REQUIRE(o.score2==0);
 	}
 }
+TEST_CASE("Reading result from tree data abbreviated name","[parse_tree]"){
+	stringstream one_match;
+	one_match<<"Player one\n"
+	         <<"Player two\n"
+	         <<"P. one\n"
+	         <<"6/3 7/5 6/4\n";
+	auto results = parse_tree(&one_match);
+	SECTION("Only one result should be returned"){
+		REQUIRE(results.size() == 1 );
+	}
+	SECTION("Correct outcome should be returned"){
+		outcome_t o = results.at(0);
+		if(o.score1 < o.score2){
+			swap(o.name1,o.name2);
+			swap(o.score1,o.score2);
+		}
+		REQUIRE(o.name1=="Player one");
+		REQUIRE(o.name2=="Player two");
+		REQUIRE(o.score1==3);
+		REQUIRE(o.score2==0);
+	}
+}
+TEST_CASE("Reading result from tree data with space in score","[parse_tree]"){
+	stringstream one_match;
+	one_match<<"Player one\n"
+	         <<"Player two\n"
+	         <<"Player one\n"
+	         <<"3  /  5 6 / 3 7/ 5 6 /4\n";
+	auto results = parse_tree(&one_match);
+	SECTION("Only one result should be returned"){
+		REQUIRE(results.size() == 1 );
+	}
+	SECTION("Correct outcome should be returned"){
+		outcome_t o = results.at(0);
+		if(o.score1 < o.score2){
+			swap(o.name1,o.name2);
+			swap(o.score1,o.score2);
+		}
+		REQUIRE(o.name1=="Player one");
+		REQUIRE(o.name2=="Player two");
+		REQUIRE(o.score1==3);
+		REQUIRE(o.score2==1);
+	}
+}
 
 TEST_CASE("Reading only one result from tree data","[parse_tree]"){
 	stringstream one_match;
