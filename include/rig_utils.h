@@ -19,6 +19,8 @@ results_t parse_tree(std::istream*);
 
 results_t parse_list(std::istream*);
 
+bool match_name(std::string, std::string);
+
 double linear_correction(double s1, double s2, int r1, int r2);
 
 double binomial_correction(double s1, double s2, int r1, int r2);

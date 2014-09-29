@@ -58,16 +58,16 @@ results_t parse_list(std::istream* in){
     return results;
 }
 
-results_t parse_tree(std::istream* in){
+bool match_name(std::string y,std::string x){
+	std::size_t i;
+	while((i=y.find_first_of('.'))!=std::string::npos){
+		y.erase(i,1);
+		y.insert(i,"[A-Z\\- ]*");
+	}
+	return std::regex_match(x,std::regex(y,std::regex_constants::icase));
+}
 
-	auto match_name = [](std::string y,std::string x){
-		std::size_t i;
-		while((i=y.find_first_of('.'))!=std::string::npos){
-			y.erase(i,1);
-			y.insert(i,"[A-Z\\- ]*");
-		}
-		return std::regex_match(x,std::regex(y,std::regex_constants::icase));
-	};
+results_t parse_tree(std::istream* in){
 
 	auto trim = [](std::string str){
 		str.erase(0,str.find_first_not_of(' '));
