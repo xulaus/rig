@@ -62,9 +62,9 @@ bool match_name(std::string y,std::string x){
 	std::size_t i;
 	while((i=y.find_first_of('.'))!=std::string::npos){
 		y.erase(i,1);
-		y.insert(i,"[A-Z\\- ]*");
+		y.insert(i,"[A-Za-z\\- ]*");
 	}
-	return std::regex_match(x,std::regex(y,std::regex_constants::icase));
+	return std::regex_match(x,std::regex(y));
 }
 
 results_t parse_tree(std::istream* in){
