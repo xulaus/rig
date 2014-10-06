@@ -149,15 +149,15 @@ results_t parse_tree(std::istream* in){
 				getline(*in,score_line);
 
 				// Extract score from matches
-				int score1=0,score2=0,pos=0;
-				while(std::regex_search(score_line.substr(pos),sm,score_regex)){
-					pos+=sm[0].str().length();
+				int score1=0,score2=0;
+				while(std::regex_search(score_line,sm,score_regex)){
 					if(stoi(sm[1].str())>stoi(sm[2].str())){
 						score1++;
 					}
 					else{
 						score2++;
 					}
+					score_line=score_line.substr(sm[0].str().length());
 				}
 				bool walkover=score_line=="wo";
 
