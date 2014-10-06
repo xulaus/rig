@@ -1,7 +1,5 @@
 #include <random>
-#define CATCH_CONFIG_MAIN
 #include "catch.hpp"
-
 #include "rig_utils.h"
 
 using namespace std;
