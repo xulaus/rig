@@ -46,6 +46,10 @@ obj:
 	@mkdir "obj/release"
 	@mkdir "obj/testing"
 
+obj/rig.o:: rig.cpp
+	@echo "Compiling object file $< ($@)..."
+	@$(CXX) $(CXXFLAGS) rig.cpp -c -o obj/rig.o
+
 obj/release/%.o:: src/%.cpp
 	@echo "Compiling object file $< ($@)..."
 	@$(CXX) $(CXXFLAGS) -c -o $@ $<
@@ -59,10 +63,9 @@ $(OBJ): | obj
 compile-only: $(OBJ)
 	@echo "Compiled All"
 
-$(EXE): $(OBJ)
+$(EXE): $(OBJ) obj/rig.o
 	@echo "Linking object files..."
-	@$(CXX) $(CXXFLAGS) rig.cpp -c -o rig.o
-	@$(CXX) $(LDFLAGS) -o $@ rig.o $(OBJ) $(LIBS)
+	@$(CXX) $(LDFLAGS) -o $@ obj/rig.o $(OBJ) $(LIBS)
 
 run: $(EXE)
 	@$(EXE)
