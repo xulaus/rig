@@ -32,6 +32,12 @@ TEST_CASE("Binomial Correction","[binomial_correction]"){
 	cor_tests(binomial_correction);
 }
 
+TEST_CASE("Expected outcome behaves sensibly","[expected_outcome]"){
+	SECTION("Higher Elo score wins"){
+		REQUIRE(expected_outcome(1024,1000) > 0.5);
+		REQUIRE(expected_outcome(987,1987) < 0.5);
+	}
+}
 TEST_CASE("Matching names works as a equality operator","[match_name]"){
 	SECTION("Identical names return true"){
 		REQUIRE(match_name("Player one","Player one")==true);

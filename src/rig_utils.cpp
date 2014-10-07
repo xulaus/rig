@@ -13,7 +13,7 @@ outcome_t::outcome_t(std::string p1,std::string p2, int s1, int s2):
 	score2(s2){}
 
 double expected_outcome(double s1,double s2){
-	return 1/(1+pow(10,(s1-s2)/400.0));
+	return 1/(1+pow(10,(s2-s1)/400.0));
 }
 
 score_t::iterator find_player(score_t &elo_map, std::string x){
