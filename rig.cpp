@@ -8,37 +8,37 @@
 using namespace std;
 int main(int iargs, const char ** args) {
 	opt_t opt;
-    read_options(opt,iargs,args);
+	read_options(opt,iargs,args);
 
-    results_t results;
-    switch(opt.in_fmt){
-    case opt_t::IN_TREE:
-	    results=parse_tree(opt.in);
-	    break;
-    case opt_t::IN_LIST:
-	    results=parse_list(opt.in);
-	    break;
-    default:
-	    throw runtime_error("Unimplemented Input Format.");
-    }
+	results_t results;
+	switch(opt.in_fmt){
+	case opt_t::IN_TREE:
+		results=parse_tree(opt.in);
+		break;
+	case opt_t::IN_LIST:
+		results=parse_list(opt.in);
+		break;
+	default:
+		throw runtime_error("Unimplemented Input Format.");
+	}
 
 	score_t scores;
 	for(auto k:results){
 		update_scores(scores,k.name1,k.name2,k.score1,k.score2,opt.cor);
 	}
 
-    switch(opt.out_fmt){
-    case opt_t::OUT_ELO:
-	    for(auto k:scores){
-		    *(opt.out)<<k.second<<"\t"<<k.first<<std::endl;
-	    }
-	    break;
-    case opt_t::OUT_LIST:
-	    for(auto& k:results){
-		    *(opt.out)<< k.name1 << " " << k.score1 <<" - "
-		              << k.score2<< " " << k.name2 << std::endl;
-	    }
-	    break;
+	switch(opt.out_fmt){
+	case opt_t::OUT_ELO:
+		for(auto k:scores){
+			*(opt.out)<<k.second<<"\t"<<k.first<<std::endl;
+		}
+		break;
+	case opt_t::OUT_LIST:
+		for(auto& k:results){
+			*(opt.out)<< k.name1 << " " << k.score1 <<" - "
+			          << k.score2<< " " << k.name2 << std::endl;
+		}
+		break;
 	case opt_t::OUT_COMP:{
 		// Get relevant players
 		auto player1 = find_player(scores,opt.player1);
@@ -68,8 +68,8 @@ int main(int iargs, const char ** args) {
 		*(opt.out)<< player1->first << " to beat " << player2->first << " (" << (e*100) << "%)"<<std::endl;
 		}
 		break;
-    default:
-	    throw runtime_error("Unimplemented Output Format.");
-    }
+	default:
+		throw runtime_error("Unimplemented Output Format.");
+	}
 	return 0;
 }

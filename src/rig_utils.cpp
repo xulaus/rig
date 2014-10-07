@@ -17,7 +17,7 @@ double expected_outcome(double s1,double s2){
 }
 
 score_t::iterator find_player(score_t &elo_map, std::string x){
-    using namespace std::placeholders;
+	using namespace std::placeholders;
 	return std::find_if(elo_map.begin(),elo_map.end(),[&](score_t::value_type y){
 		return match_name(x,y.first);
 	});
@@ -48,27 +48,27 @@ results_t parse_list(std::istream* in){
 	std::regex names_format("([A-Za-z \\-]+?)\\s+-\\s+([A-Za-z \\-]+?)");
 	std::regex names_and_score("([A-Za-z \\-]+?)\\s+(\\d+)\\s*-\\s*(\\d+)\\s+([A-Za-z \\-]+?)");
 
-    while(getline(*(in),line)){
-	    std::smatch matches;
+	while(getline(*(in),line)){
+		std::smatch matches;
 
 		if(regex_match(line, matches, names_format)){
 			results.push_back(outcome_t(matches[1].str(),
 			                            matches[2].str(),
 			                            1,1));
 		}
-        else if(regex_match(line,matches, names_and_score)){
-	        auto score1 = stoi(matches[2].str());
-	        auto score2 = stoi(matches[3].str());
+		else if(regex_match(line,matches, names_and_score)){
+			auto score1 = stoi(matches[2].str());
+			auto score2 = stoi(matches[3].str());
 			results.push_back(outcome_t(matches[1].str(),
 			                            matches[4].str(),
 			                            score1,
 			                            score2));
-        }
-        else{
-	        throw std::runtime_error("Datafile in incorrect format.");
-        }
-    }
-    return results;
+		}
+		else{
+			throw std::runtime_error("Datafile in incorrect format.");
+		}
+	}
+	return results;
 }
 
 bool match_name(std::string y,std::string x){
