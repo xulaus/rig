@@ -6,6 +6,7 @@
 opt_t::opt_t():
 	in(&std::cin),out(&std::cout),
 	cor(&linear_correction),
+	player1(),player2(),
 	in_fmt(IN_TREE),out_fmt(OUT_ELO){}
 
 opt_t::~opt_t(){
@@ -65,6 +66,11 @@ void read_options(opt_t& opt,int iargs,const char ** arg){
 		}
 		else if(strcmp("--oelo",arg[i])==0){
 			opt.out_fmt = opt_t::OUT_ELO;
+		}
+		else if(strcmp("--ocomp",arg[i])==0 && i+2 < iargs){
+			opt.out_fmt = opt_t::OUT_COMP;
+			opt.player1 = arg[++i];
+			opt.player2 = arg[++i];
 		}
 		else if(strcmp("-?",arg[i])==0){
 			std::cout<<

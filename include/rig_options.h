@@ -5,6 +5,8 @@
 struct opt_t{
 	std::istream* in;
 	std::ostream* out;
+	std::string player1;
+	std::string player2;
 	double (*cor)(double,double,int,int);
 	enum in_fmt_t{
 		IN_TREE,
@@ -13,7 +15,8 @@ struct opt_t{
 	} in_fmt;
 	enum out_fmt_t{
 		OUT_ELO,
-		OUT_LIST
+		OUT_LIST,
+		OUT_COMP
 	} out_fmt;
 	opt_t();
 	~opt_t();

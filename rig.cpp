@@ -39,6 +39,35 @@ int main(int iargs, const char ** args) {
 		              << k.score2<< " " << k.name2 << std::endl;
 	    }
 	    break;
+	case opt_t::OUT_COMP:{
+		// Get relevant players
+		auto player1 = find_player(scores,opt.player1);
+		auto player2 = find_player(scores,opt.player2);
+
+		// Check players exist
+		if(player1 == scores.end()){
+			std::cerr << "Could not find player '" <<opt.player1<<"'"<<std::endl;
+			return 1;
+		}
+		if(player2 == scores.end()){
+			std::cerr << "Could not find player '" <<opt.player2<<"'"<<std::endl;
+			return 1;
+		}
+
+
+		// Calculate win chance
+		double e = expected_outcome(player1->second,player2->second);
+
+		// If more likely to loose, swap players so player1 is winner
+		if(e<0.5){
+			swap(player1,player2);
+			e = 1-e;
+		}
+
+		// Output result
+		*(opt.out)<< player1->first << " to beat " << player2->first << " (" << (e*100) << "%)"<<std::endl;
+		}
+		break;
     default:
 	    throw runtime_error("Unimplemented Output Format.");
     }
