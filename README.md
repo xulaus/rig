@@ -29,12 +29,11 @@ Building Rig
 ===
 Rig has been built successfully with Clang and GCC but older versions of GCC may fail to work correctly due to an incomplete `libstdc++`.
 To check if rig will work correctly run
-```
+
 	make test
 	./rig_test
-```
-(in windows `cmd` you will need to run `rig_test` instead of `./rig_test`).
+
+In windows `cmd` you will need to run `rig_test` instead of `./rig_test`.
 To then build rig, run
-```
+
 	make
-```
