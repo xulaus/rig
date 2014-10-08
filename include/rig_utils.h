@@ -18,11 +18,6 @@ double expected_outcome(double s1,double s2);
 
 score_t::iterator find_player(score_t&, std::string);
 
-using results_t = std::vector<outcome_t>;
-
-results_t parse_tree(std::istream*);
-
-results_t parse_list(std::istream*);
 
 bool match_name(std::string, std::string);
 
