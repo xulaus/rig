@@ -16,7 +16,6 @@ double expected_outcome(double s1,double s2){
 }
 
 score_t::iterator find_player(score_t &elo_map, std::string x){
-	using namespace std::placeholders;
 	return std::find_if(elo_map.begin(),elo_map.end(),[&](score_t::value_type y){
 		return match_name(x,y.first);
 	});
