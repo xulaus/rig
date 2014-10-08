@@ -7,9 +7,11 @@
 
 using namespace std;
 int main(int iargs, const char ** args) {
+	// Get options from command line
 	opt_t opt;
 	read_options(opt,iargs,args);
 
+	// Generate a list of match outcomes from input
 	results_t results;
 	switch(opt.in_fmt){
 	case opt_t::IN_TREE:
@@ -22,11 +24,13 @@ int main(int iargs, const char ** args) {
 		throw runtime_error("Unimplemented Input Format.");
 	}
 
+	// Calculate Elo Ratings
 	score_t scores;
 	for(auto k:results){
 		update_scores(scores,k.name1,k.name2,k.score1,k.score2,opt.cor);
 	}
 
+	// Output in relevant format
 	switch(opt.out_fmt){
 	case opt_t::OUT_ELO:
 		for(auto k:scores){
@@ -40,6 +44,7 @@ int main(int iargs, const char ** args) {
 		}
 		break;
 	case opt_t::OUT_COMP:{
+		// If comparing two players
 		// Get relevant players
 		auto player1 = find_player(scores,opt.player1);
 		auto player2 = find_player(scores,opt.player2);
