@@ -12,7 +12,7 @@ This list data must be formatted either with outcomes as
     Player One 2 - 1 Player Two
 Or as just the names
 
-    Winner - Looser
+    Winner - Loser
     
 Tennis results are often distributed as tree like data rather than as a list of outcomes.
 Rig can deal with this data directly as
