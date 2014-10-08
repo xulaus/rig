@@ -4,6 +4,7 @@
 #include "moremath.h"
 #include "rig_options.h"
 #include "rig_utils.h"
+#include "parsing.h"
 
 using namespace std;
 int main(int iargs, const char ** args) {
