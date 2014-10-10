@@ -2,9 +2,9 @@
 #include <cmath>
 
 int choose(int n, int k) {
-	int r = 1;
-	int d;
-	if (k > n) return 0;
+	double r = 1;
+	double d;
+	if (k > n || k < 0) return 0;
 	for (d=1; d <= k; d++) {
 		r *= n--;
 		r /= d;
