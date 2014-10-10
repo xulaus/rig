@@ -42,6 +42,12 @@ double binomial_correction(double s1, double s2, int r1, int r2){
 
 bool match_name(std::string y,std::string x){
 	std::size_t i;
+	while((i=y.find_first_of('-'))!=std::string::npos){
+		y.erase(i,1);
+		y.insert(i,"[A~Za~z ]*~");
+	}
+	std::replace(y.begin(),y.end(),'~','-');
+
 	while((i=y.find_first_of('.'))!=std::string::npos){
 		y.erase(i,1);
 		y.insert(i,"[A-Za-z\\- ]*");
