@@ -64,6 +64,11 @@ int main(int iargs, const char ** args) {
 		// Calculate win chance
 		double e = expected_outcome(player1->second,player2->second);
 
+		// If we are using binomial corrections we can use the CDF to more accurately determine win chance
+		if(opt.cor == binomial_correction){
+			e = 1-binomial_cdf(2,e,5);
+		}
+
 		// If more likely to loose, swap players so player1 is winner
 		if(e<0.5){
 			swap(player1,player2);
