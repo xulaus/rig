@@ -1,9 +1,9 @@
 #include "moremath.h" 
 #include <cmath>
 
-double choose(double n, double k) {
-	double r = 1;
-	double d;
+int choose(int n, int k) {
+	int r = 1;
+	int d;
 	if (k > n) return 0;
 	for (d=1; d <= k; d++) {
 		r *= n--;
