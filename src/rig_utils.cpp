@@ -36,7 +36,7 @@ double binomial_correction(double s1, double s2, int r1, int r2){
 	auto K = 32;
 
 	double cor;
-	cor=binomial_cdf(r1,p,total)+binomial_pdf(r1,p,total)/2-0.5;
+	cor=binomial_cdf(r1-1,p,total)+binomial_pdf(r1,p,total)/2-0.5;
 	return K*cor;
 }
 
