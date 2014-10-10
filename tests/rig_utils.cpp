@@ -58,4 +58,10 @@ TEST_CASE("Matching abbreviated name works.","[match_name]"){
 	SECTION("Abbreviated first names expand"){
 		REQUIRE(match_name("P. one","Player one")==true);
 	}
+	SECTION("Hyphenated names expand"){
+		REQUIRE(match_name("P-T. one","Player-Twenty one")==true);
+	}
+	SECTION("Double barrelled names expand"){
+		REQUIRE(match_name("J. Del Potro","Juan Martin Del Potro")==true);
+	}
 }
