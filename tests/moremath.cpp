@@ -31,3 +31,13 @@ TEST_CASE("Choose function behaves sensibly","[choose]"){
 		REQUIRE(choose(1000, 1001) ==    0);
 	}
 }
+
+TEST_CASE("Binomial PDF behaves sensibly", "[binomial_pdf]"){
+	SECTION("Negative numbers have 0 probability"){
+		REQUIRE(binomial_pdf(-1,1,1)==0);
+	}
+	SECTION("Full probability for each test gives full probability for test number"){
+		REQUIRE(binomial_pdf(1,1,1)==1);
+		REQUIRE(binomial_pdf(2,1,2)==1);
+	}
+}
