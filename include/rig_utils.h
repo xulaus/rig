@@ -13,6 +13,7 @@ struct outcome_t{
 	int score2;
 	outcome_t(std::string,std::string, int, int);
 };
+using results_t = std::vector<outcome_t>;
 
 double expected_outcome(double s1,double s2);
 
@@ -29,5 +30,7 @@ void update_scores(score_t &elo_map,
                    const std::string& k1, const std::string& k2,
                    double s, double r,
                    double (*corrector)(double,double,int,int));
+
+score_t do_elo(results_t results,double (*corrector)(double,double,int,int));
 
 #endif

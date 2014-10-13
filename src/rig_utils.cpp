@@ -71,3 +71,11 @@ void update_scores(score_t &elo_map,
 	elo_map[k1] += corrector(s1,s2,r1,r2);
 	elo_map[k2] += corrector(s2,s1,r2,r1);
 }
+
+score_t do_elo(results_t results,double (*corrector)(double,double,int,int)){
+	score_t elo_map;
+	for(auto k:results){
+		update_scores(elo_map,k.name1,k.name2,k.score1,k.score2,corrector);
+	}
+	return elo_map;
+}

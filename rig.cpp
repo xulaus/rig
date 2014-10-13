@@ -33,10 +33,7 @@ int main(int iargs, const char ** args) {
 	}
 
 	// Calculate Elo Ratings
-	score_t scores;
-	for(auto k:results){
-		update_scores(scores,k.name1,k.name2,k.score1,k.score2,opt.cor);
-	}
+	score_t scores = do_elo(results,*(opt.cor));
 
 	// Output in relevant format
 	switch(opt.out_fmt){
