@@ -14,15 +14,22 @@ int main(int iargs, const char ** args) {
 
 	// Generate a list of match outcomes from input
 	results_t results;
-	switch(opt.in_fmt){
-	case opt_t::IN_TREE:
-		results=parse_tree(opt.in);
-		break;
-	case opt_t::IN_LIST:
-		results=parse_list(opt.in);
-		break;
-	default:
-		throw runtime_error("Unimplemented Input Format.");
+	try{
+		switch(opt.in_fmt){
+		case opt_t::IN_TREE:
+			results=parse_tree(opt.in);
+			break;
+		case opt_t::IN_LIST:
+			results=parse_list(opt.in);
+			break;
+		default:
+			throw runtime_error("Unimplemented Input Format.");
+		}
+	}
+	catch (std::exception& e){
+		cout<< "Parsing error! Error was:" << endl
+		    << e.what() << endl;
+		return 1;
 	}
 
 	// Calculate Elo Ratings
