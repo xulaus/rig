@@ -14,7 +14,7 @@ results_t parse_list(std::istream* in){
 		if(regex_match(line, matches, names_format)){
 			results.push_back(outcome_t(matches[1].str(),
 			                            matches[2].str(),
-			                            1,1));
+			                            1,1,0));
 		}
 		else if(regex_match(line,matches, names_and_score)){
 			auto score1 = stoi(matches[2].str());
@@ -22,7 +22,7 @@ results_t parse_list(std::istream* in){
 			results.push_back(outcome_t(matches[1].str(),
 			                            matches[4].str(),
 			                            score1,
-			                            score2));
+			                            score2,0));
 		}
 		else{
 			throw std::runtime_error("Datafile in incorrect format.");
@@ -130,7 +130,7 @@ results_t parse_tree(std::istream* in){
 				}
 
 				// Add outcome to list of results
-				results.push_back(outcome_t(names.first,names.second,score1,score2));
+				results.push_back(outcome_t(names.first,names.second,score1,score2,0));
 
 				// Add winner to competitors
 				if(first_opponent_set){

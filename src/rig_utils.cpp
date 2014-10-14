@@ -5,11 +5,12 @@
 #include "moremath.h"
 #include "rig_utils.h"
 
-outcome_t::outcome_t(std::string p1,std::string p2, int s1, int s2):
+outcome_t::outcome_t(std::string p1,std::string p2, int s1, int s2, unsigned int):
 	name1(p1),
 	name2(p2),
 	score1(s1),
-	score2(s2){}
+	score2(s2),
+	time(1){}
 
 double expected_outcome(double s1,double s2){
 	return 1/(1+pow(10,(s2-s1)/400.0));

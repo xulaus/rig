@@ -11,7 +11,8 @@ struct outcome_t{
 	std::string name2;
 	int score1;
 	int score2;
-	outcome_t(std::string,std::string, int, int);
+	unsigned int time;
+	outcome_t(std::string,std::string, int, int, unsigned int);
 };
 using results_t = std::vector<outcome_t>;
 
