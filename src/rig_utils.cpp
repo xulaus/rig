@@ -55,28 +55,3 @@ bool match_name(std::string y,std::string x){
 	}
 	return std::regex_match(x,std::regex(y));
 }
-
-void update_scores(score_t &elo_map,
-                   const std::string& k1, const std::string& k2,
-                   double r1, double r2,
-                   double (*corrector)(double,double,int,int)){
-	if(!elo_map.count(k1))
-		elo_map[k1]=1400.0;
-
-	if(!elo_map.count(k2))
-		elo_map[k2]=1400.0;
-
-	auto s1 = elo_map[k1];
-	auto s2 = elo_map[k2];
-
-	elo_map[k1] += corrector(s1,s2,r1,r2);
-	elo_map[k2] += corrector(s2,s1,r2,r1);
-}
-
-score_t do_elo(results_t results,double (*corrector)(double,double,int,int)){
-	score_t elo_map;
-	for(auto k:results){
-		update_scores(elo_map,k.name1,k.name2,k.score1,k.score2,corrector);
-	}
-	return elo_map;
-}

@@ -27,11 +27,5 @@ double linear_correction(double s1, double s2, int r1, int r2);
 
 double binomial_correction(double s1, double s2, int r1, int r2);
 
-void update_scores(score_t &elo_map,
-                   const std::string& k1, const std::string& k2,
-                   double s, double r,
-                   double (*corrector)(double,double,int,int));
-
-score_t do_elo(results_t results,double (*corrector)(double,double,int,int));
 
 #endif

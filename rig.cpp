@@ -5,6 +5,7 @@
 #include "rig_options.h"
 #include "rig_utils.h"
 #include "parsing.h"
+#include "prediction_methods.h"
 
 using namespace std;
 int main(int iargs, const char ** args) {
@@ -33,7 +34,7 @@ int main(int iargs, const char ** args) {
 	}
 
 	// Calculate Elo Ratings
-	score_t scores = do_elo(results,*(opt.cor));
+	score_t scores = elo(opt.cor)(results);
 
 	// Output in relevant format
 	switch(opt.out_fmt){
