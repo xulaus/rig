@@ -33,8 +33,17 @@ int main(int iargs, const char ** args) {
 		return 1;
 	}
 
+	prediction_method* predictor = nullptr;
+	switch(opt.method){
+		case opt_t::ELO_METHOD:
+			predictor = new elo(opt.cor);
+	}
+
 	// Calculate Elo Ratings
-	score_t scores = elo(opt.cor)(results);
+	score_t scores;
+	if(predictor != nullptr){
+		scores = (*predictor)(results);
+	}
 
 	// Output in relevant format
 	switch(opt.out_fmt){

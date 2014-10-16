@@ -18,6 +18,9 @@ struct opt_t{
 		OUT_LIST,
 		OUT_COMP
 	} out_fmt;
+	enum method_t{
+		ELO_METHOD
+	} method;
 	opt_t();
 	~opt_t();
 };
