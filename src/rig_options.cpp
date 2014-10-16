@@ -72,6 +72,9 @@ void read_options(opt_t& opt,int iargs,const char ** arg){
 			opt.player1 = arg[++i];
 			opt.player2 = arg[++i];
 		}
+		else if(strcmp("--elo",arg[i])==0){
+			opt.method = opt_t::ELO_METHOD;
+		}
 		else if(strcmp("-?",arg[i])==0){
 			std::cout<<
 				"\t-?      Print this help message.\n"
