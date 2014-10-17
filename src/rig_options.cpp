@@ -46,12 +46,6 @@ void read_options(opt_t& opt,int iargs,const char ** arg){
 				exit(1);
 			}
 		}
-		else if(strcmp("-b",arg[i])==0){
-			opt.cor=&binomial_correction;
-		}
-		else if(strcmp("-l",arg[i])==0){
-			opt.cor=&linear_correction;
-		}
 		else if(strcmp("--itree",arg[i])==0){
 			opt.in_fmt = opt_t::IN_TREE;
 		}
@@ -74,19 +68,25 @@ void read_options(opt_t& opt,int iargs,const char ** arg){
 		}
 		else if(strcmp("--elo",arg[i])==0){
 			opt.method = opt_t::ELO_METHOD;
+			opt.cor = &linear_correction;
+		}
+		else if(strcmp("--mod-elo",arg[i])==0){
+			opt.method = opt_t::ELO_METHOD;
+			opt.cor = &binomial_correction;
 		}
 		else if(strcmp("-?",arg[i])==0){
 			std::cout<<
-				"\t-?      Print this help message.\n"
-				"\t-l      Use linear rating corrections (standard Elo).\n"
-				"\t-b      Use binomial rating corrections.\n"
-				"\t-i      Input file.\n"
-				"\t-o      Output file.\n"
-				"\t--itree Input is in tree format.\n"
-				"\t--ilist Input is in a list format.\n"
-				"\t--ielo  Input is a list of elo ratings.\n"
-				"\t--olist Output wanted is a list of match results.\n"
-				"\t--oelo  Output wanted is a list of ratings.";
+				"\t-?         Print this help message.\n"
+				"\t--elo      Use standard Elo algoritm.\n"
+				"\t--mod-elo  Use modified Elo algoritm.\n"
+				"\t-i         Input file.\n"
+				"\t-o         Output file.\n"
+				"\t--itree    Input is in tree format.\n"
+				"\t--ilist    Input is in a list format.\n"
+				"\t--ielo     Input is a list of elo ratings.\n"
+				"\t--olist    Output wanted is a list of match results.\n"
+				"\t--ocomp    Output wanted is a prediction of winner between next two arguments.\n"
+				"\t--oelo     Output wanted is a list of ratings.";
 			std::cout<<std::endl;
 			exit(0);
 		}
