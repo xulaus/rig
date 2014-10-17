@@ -34,9 +34,11 @@ int main(int iargs, const char ** args) {
 	}
 
 	prediction_method* predictor = nullptr;
-	switch(opt.method){
-		case opt_t::ELO_METHOD:
-			predictor = new elo(opt.cor);
+	if(opt.out_fmt != opt_t::OUT_LIST){
+		switch(opt.method){
+			case opt_t::ELO_METHOD:
+				predictor = new elo(opt.cor);
+		}
 	}
 
 	// Calculate Elo Ratings
