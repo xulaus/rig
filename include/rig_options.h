@@ -23,6 +23,8 @@ struct opt_t{
 	} method;
 	opt_t();
 	~opt_t();
+	opt_t(opt_t&) = default;
+	opt_t& operator=(opt_t&) = default;
 };
 
 void read_options(opt_t& opt,int iargs,const char ** arg);
