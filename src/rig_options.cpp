@@ -18,7 +18,8 @@ opt_t::~opt_t(){
 	}
 }
 
-void read_options(opt_t& opt,int iargs,const char ** arg){
+opt_t read_options(int iargs,const char ** arg){
+	opt_t opt;
 	for(int i=1;i<iargs;i++){
 		if(strcmp("-i",arg[i])==0){
 			if(++i<iargs){
@@ -95,4 +96,5 @@ void read_options(opt_t& opt,int iargs,const char ** arg){
 			exit(1);
 		}
 	}
+	return opt;
 }

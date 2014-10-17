@@ -10,8 +10,7 @@
 using namespace std;
 int main(int iargs, const char ** args) {
 	// Get options from command line
-	opt_t opt;
-	read_options(opt,iargs,args);
+	opt_t opt = read_options(iargs,args);
 
 	// Generate a list of match outcomes from input
 	results_t results;

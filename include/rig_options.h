@@ -27,5 +27,5 @@ struct opt_t{
 	opt_t& operator=(opt_t&) = default;
 };
 
-void read_options(opt_t& opt,int iargs,const char ** arg);
+opt_t read_options(int iargs,const char ** arg);
 #endif
