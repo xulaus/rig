@@ -6,7 +6,7 @@
 class prediction_method{
 	public:
 		prediction_method();
-		virtual score_t operator()(results_t) = 0;
+		virtual score_t operator()(const results_t&) = 0;
 		virtual ~prediction_method();
 };
 
@@ -15,6 +15,6 @@ class elo : public prediction_method{
 		std::function<double(double,double,int,int)> corrector;
 	public:
 		elo(std::function<double(double,double,int,int)>);
-		score_t operator()(results_t);
+		score_t operator()(const results_t&);
 };
 #endif

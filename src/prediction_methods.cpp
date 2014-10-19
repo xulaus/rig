@@ -3,15 +3,17 @@
 prediction_method::prediction_method(){}
 prediction_method::~prediction_method(){}
 
-elo::elo(std::function<double(double,double,int,int)> f): corrector(f){
+elo::elo(std::function<double(double,double,int,int)> f):
+	corrector(std::move(f))
+{
 }
 
-score_t elo::operator()(results_t results){
+score_t elo::operator()(const results_t& results){
 	score_t elo_map;
-	for(auto k:results){
+	for(const auto& k:results){
+		// Ensure each player has a rating set
 		if(!elo_map.count(k.name1))
 			elo_map[k.name1]=1400.0;
-
 		if(!elo_map.count(k.name2))
 			elo_map[k.name2]=1400.0;
 

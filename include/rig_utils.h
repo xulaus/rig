@@ -18,10 +18,10 @@ using results_t = std::vector<outcome_t>;
 
 double expected_outcome(double s1,double s2);
 
-score_t::iterator find_player(score_t&, std::string);
+score_t::iterator find_player(score_t&, const std::string&);
 
 
-bool match_name(std::string, std::string);
+bool match_name(std::string, const std::string&);
 
 double linear_correction(double s1, double s2, int r1, int r2);
 
