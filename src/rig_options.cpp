@@ -10,7 +10,7 @@ opt_t::opt_t():
 	in_fmt(IN_TREE),out_fmt(OUT_ELO),method(ELO_METHOD){}
 
 opt_t::~opt_t(){
-	if(in!=&std::cin && out!=nullptr){
+	if(in!=&std::cin && in!=nullptr){
 		delete in;
 	}
 	if(out!=&std::cout && out!=nullptr){
