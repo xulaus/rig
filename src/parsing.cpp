@@ -7,6 +7,9 @@ results_t parse_list(std::istream* in){
 	results_t results;
 	std::regex names_format("([A-Za-z \\-]+?)\\s+-\\s+([A-Za-z \\-]+?)");
 	std::regex names_and_score("([A-Za-z \\-]+?)\\s+(\\d+)\\s*-\\s*(\\d+)\\s+([A-Za-z \\-]+?)");
+	
+	if(in==nullptr) throw std::invalid_argument("Input file cannot be null pointer.");
+	if(!in->good()) throw std::runtime_error("Input file cannot be read from.");
 
 	while(getline(*(in),line)){
 		std::smatch matches;
