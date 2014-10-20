@@ -41,21 +41,17 @@ double binomial_correction(double s1, double s2, int r1, int r2){
 }
 
 bool match_name(std::string y,const std::string& x){
-	std::size_t i;
-	// To expand hyphenations we need to replace - with any letter. Spaces 
+	std::size_t i = 0;
+	// We want to convert y to a regex that will match even if abbreviated
+	// To do this we need to replace character that represent abbreviations with
+	// an expression for with any potentially abbreviated letter. Spaces
 	// may be needed if multiple names have been abbreviated to one letter
-	while((i=y.find_first_of('-'))!=std::string::npos){
-		y.erase(i,1);
-		// Use ~ instead of - to prevent infinite loop
-		y.insert(i,"[A~Za~z ]*~");
-	}
-	// Replace ~ with -
-	std::replace(y.begin(),y.end(),'~','-');
+	std::string expansion_regex = "[A-Za-z\\- ]*";
 
-	// .'s need to be expanded too
-	while((i=y.find_first_of('.'))!=std::string::npos){
-		y.erase(i,1);
-		y.insert(i,"[A-Za-z\\- ]*");
+	// Loop through replacing expansion characters with regex
+	while((i=y.find_first_of("-.",i))!=std::string::npos){
+		y.replace(i,1,expansion_regex);
+		i+=expansion_regex.size()+1;
 	}
 
 	// used generated regex to see if match or not
